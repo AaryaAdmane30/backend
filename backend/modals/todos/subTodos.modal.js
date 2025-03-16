@@ -1,18 +1,24 @@
 import mongoose from "mongoose";
 
-//  Making schema :
-
-const userSchema = new mongoose.Schema(
+const subTodoSchema = new mongoose.Schema(
   {
-    username: {
+    content: {
       type: String,
       required: true,
-      unique: true,
+    },
+
+    complete: {
+      type: Boolean,
+      default: false, // off the user when doent provide any value set to false
+    },
+
+    creadedBy: {
+      //  taking REference from User as they are going to input and create
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
     },
   },
   { timestamps: true }
-  // when we set Timestap : true  this will automatically add two properties which is "createdAt" - data at which the object is created and "updatedAT" - the data at which the object is updated
 );
 
-// "User" is stored in mongoDb as "users" collcetion like this  ex "db.users  "
-export const User = mongoose.model("User", userSchema);
+export const SubTodo = mongoose.model("SubTodo", subTodoSchema);
